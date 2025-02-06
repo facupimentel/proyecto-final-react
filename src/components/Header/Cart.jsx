@@ -5,12 +5,11 @@ import { useCart } from "../../context/CartContext";
 import products from "../../js/productos";
 import { useUser } from "../../context/UserContext";
 
-
-
 const Cart = () => {
   const {user} = useUser()
  
   const { cart, cleanCart, getTotal, removeFromCart } = useCart();
+  
   
   const [carritoVisible, setCarritoVisible] = useState(false);
   const toggleCarrito = () => {
@@ -62,6 +61,12 @@ const Cart = () => {
               ) : (
                 cart.map((item) => (
                   <li key={item.id}>
+                    <button onClick={()=>removeFromCart(item.id)} style={{
+                      width:"10%",
+                      height:"8%",
+                      fontSize:"8px",
+                      textAlign:"center"
+                    }}>x</button>
                     {item.name} - {item.quantity} x {item.price}
                   </li>
                 ))

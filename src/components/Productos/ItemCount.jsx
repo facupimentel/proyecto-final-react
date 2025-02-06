@@ -3,8 +3,8 @@ import React from "react";
 
 const ItemCount = ({ cantidad, setCantidad }) => {
 
-  const incrementar = () => setCantidad((prev) => Math.min(prev + 1, 10));
-  const decrementar = () => setCantidad((prev) => Math.min(prev - 1, 10));
+  const incrementar = (id) => setCantidad((prev) => Math.min(prev + 1, 10));
+  const decrementar = (id) => setCantidad((prev) => Math.min(prev - 1, 10));
 
   return (
     <div>

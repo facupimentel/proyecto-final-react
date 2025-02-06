@@ -4,6 +4,8 @@ import products from "../../js/productos";
 import { useParams } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import ItemCount from "./ItemCount";
+import Loading from "../Loading/Loading"
+
 
 const fetchProductos = (id) =>{
   return new Promise((resolve, reject) =>{
@@ -34,38 +36,30 @@ const ItemDetailContainer = () => {
   const [error, setError] = useState(null);
 
   useEffect(()=>{
-    setCargando(true)
-    fetchProductos(id)
-      .then((data)=>{
-        setProducto(data)
-        setError(null)
-      })
-      .catch((error)=>{
-        setProducto(null)
-        setError(error)
-      })
-      .finally(()=>{
-        setCargando(false)
-      })
+    setTimeout(()=>{
+      setCargando(true)
+      fetchProductos(id)
+        .then((data)=>{
+          setProducto(data)
+          setError(null)
+        })
+        .catch((error)=>{
+          setProducto(null)
+          setError(error)
+        })
+        .finally(()=>{
+          setCargando(false)
+        })
+    }, 2000)
   }, [id])
-
-
-  if(cargando){
-    return <p style={{
-      textAlign:"center"
-    }}>Cargando producto</p>
-  }
-
-  if(error){
-    return <p style={{ color: "red" }}>{error}</p>;
-  }
-
-
 
 
 
   return (
     <>
+
+      {
+        cargando ? <Loading/> : (
       <div className="detalle-producto">
         <h2 key={producto.id}>ID: {id ? id : ""}</h2>
         <img src={producto.image} alt="" />
@@ -79,6 +73,9 @@ const ItemDetailContainer = () => {
           Agregar al carrito
         </button>
       </div>
+        )
+      }
+      
     </>
   );
 };

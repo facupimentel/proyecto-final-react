@@ -41,7 +41,7 @@ const NavBar = ({totalProductos}) => {
           <button
             style={{
               width:"63px",
-              marginRight:"30px"
+              marginRight:"10px"
             }}
             onClick={handleLoginLogout}
           >
