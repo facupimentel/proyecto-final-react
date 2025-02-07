@@ -3,6 +3,7 @@ import NavBar from './NavBar';
 import {useState} from 'react'
 import { useUser } from '../../context/UserContext';
 import { cargarProductos } from '../BaseDatos/AgregarProductos';
+import { borrarProductos } from '../BaseDatos/BorrarProductos';
 
 const Header = ({totalProductos}) => {
   const {user} = useUser()
@@ -25,9 +26,17 @@ const Header = ({totalProductos}) => {
             Bienvenido {user.name}
           </p>
 
-          <div>
+          <div style={{
+            display:"flex",
+            gap:"15px",
+            margin:"0px 20px",
+
+          }}>
             <button onClick={cargarProductos}>
               cargar productos a Firestore
+            </button>
+            <button onClick={borrarProductos}>
+              eliminar productos de Firestore
             </button>
           </div>
         </>

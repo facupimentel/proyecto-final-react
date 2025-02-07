@@ -5,6 +5,7 @@ import { useCart } from "../../context/CartContext";
 import products from "../../js/productos";
 import { useUser } from "../../context/UserContext";
 
+
 const Cart = () => {
   const {user} = useUser()
  
@@ -19,6 +20,11 @@ const Cart = () => {
   const totalProductos = cart.reduce((acc, item)=> acc + item.quantity, 0)
 
   const confirmarCompra = async () => {
+    if(cart.length === 0){
+      alert("el carrito esta vacio")
+      return
+    }
+
     try {
       const comprasRef = collection(db, "Compras");
       const docRef = await addDoc(comprasRef, {
@@ -32,7 +38,11 @@ const Cart = () => {
           fecha: new Date().toISOString()
       });
       cleanCart()
-      alert("compra realizada")
+      alert(
+        `Compra realizada con éxito!\nID de orden: ${
+          docRef.id
+        }\nTotal: $${getTotal()}\nFecha: ${new Date().toISOString()}`
+      );
       console.log("Documento agregado con ID:", docRef);
     } catch (error) {
       console.log("ocurrio un error: ", error);
